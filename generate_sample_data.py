@@ -1,6 +1,8 @@
 import json
 import random
 
+from pathlib import Path
+
 FIRST_NAMES = [
     "James",
     "John",
@@ -236,7 +238,12 @@ def create_air_pollution_data():
             "no2": random.randint(0, 100)
         }
 
-    with open("air-pollution.json", "a") as output:
+    path = 'sample-data/air-pollution.json'
+
+    Path(path).unlink()
+    Path(path).touch()
+
+    with open(path, "a") as output:
         output.write(
             json.dumps(
                 data,
@@ -246,9 +253,13 @@ def create_air_pollution_data():
 
 
 def create_company_a_customers():
-    with open('company-a-customers.csv', 'a') as output:
-        output.write('id,name,zip_code')
-        output.write('\n')
+    path = 'sample-data/company-a-customers.csv'
+
+    Path(path).unlink()
+    Path(path).touch()
+
+    with open(path, 'a') as output:
+        output.write('id,name,zip_code\n')
 
         for i in range(1000):
             first_name = random.choice(FIRST_NAMES)
