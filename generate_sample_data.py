@@ -236,28 +236,28 @@ def create_air_pollution_data():
             "no2": random.randint(0, 100)
         }
 
-    return data
-
-
-def random_first_last_name() -> tuple[str, str]:
-    return random.choice(FIRST_NAMES), random.choice(LAST_NAMES)
-
-
-if __name__ == "__main__":
     with open("air-pollution.json", "a") as output:
         output.write(
             json.dumps(
-                create_air_pollution_data(),
+                data,
                 indent=4
             )
         )
 
+
+def create_company_a_customers():
     with open('company-a-customers.csv', 'a') as output:
         output.write('id,name,zip_code')
         output.write('\n')
 
         for i in range(1000):
-            first_name, last_name = random_first_last_name()
+            first_name = random.choice(FIRST_NAMES)
+            last_name = random.choice(LAST_NAMES)
 
             output.write(f'{i},{first_name} {last_name},{random.randint(1000, 5000)}')
             output.write('\n')
+
+
+if __name__ == "__main__":
+    create_air_pollution_data()
+    create_company_a_customers()
