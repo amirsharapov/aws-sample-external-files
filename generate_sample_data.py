@@ -240,11 +240,11 @@ def create_air_pollution_data():
 
     path = 'sample-data/air-pollution.json'
 
-    Path(path).unlink()
+    Path(path).unlink(missing_ok=True)
     Path(path).touch()
 
-    with open(path, "a") as output:
-        output.write(
+    with open(path, "a") as file:
+        file.write(
             json.dumps(
                 data,
                 indent=4
@@ -255,20 +255,45 @@ def create_air_pollution_data():
 def create_company_a_customers():
     path = 'sample-data/company-a-customers.csv'
 
-    Path(path).unlink()
+    Path(path).unlink(missing_ok=True)
     Path(path).touch()
 
-    with open(path, 'a') as output:
-        output.write('id,name,zip_code\n')
+    with open(path, 'a') as file:
+        file.write('id,name,zip_code\n')
 
         for i in range(1000):
             first_name = random.choice(FIRST_NAMES)
             last_name = random.choice(LAST_NAMES)
 
-            output.write(f'{i},{first_name} {last_name},{random.randint(1000, 5000)}')
-            output.write('\n')
+            file.write(f'{i},{first_name} {last_name},{random.randint(1000, 5000)}')
+            file.write('\n')
 
+
+def create_company_b_customers():
+    path = 'sample-data/company-b-customers.csv'
+
+    Path(path).unlink(missing_ok=True)
+    Path(path).touch()
+
+    with open(path, 'a') as file:
+        file.write('id'.ljust(10))
+        file.write('first_name'.ljust(20))
+        file.write('last_name'.ljust(20))
+        file.write('zip_code'.ljust(10))
+        file.write('\n')
+
+        for i in range(1000):
+            first_name = random.choice(FIRST_NAMES)
+            last_name = random.choice(LAST_NAMES)
+            zip_code = random.randint(1000, 5000)
+
+            file.write(str(i).ljust(10))
+            file.write(first_name.ljust(20))
+            file.write(last_name.ljust(20))
+            file.write(str(zip_code).ljust(10))
+            file.write('\n')
 
 if __name__ == "__main__":
     create_air_pollution_data()
     create_company_a_customers()
+    create_company_b_customers()
